@@ -17,10 +17,11 @@ class PCalc_T : public PCalc {
     PCalc_T(unsigned int count_to, unsigned int threads);
     unsigned int array_size() { return asize; };
     void markNonPrimes();
-
-
+    void *markNonPrimes2(void *arg);
 
     void printPrimes(const char *filename);
+
+    void spawnThread();
 
     protected:
 

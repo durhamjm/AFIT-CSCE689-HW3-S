@@ -7,12 +7,10 @@
 #include <math.h>
 
 PCalc_SP::PCalc_SP(unsigned int count_to) : PCalc(count_to) {
-
 }
 
-PCalc_SP::~PCalc_SP() {}
-
-
+PCalc_SP::~PCalc_SP() {
+}
 
 void PCalc_SP::markNonPrimes() {
     //variables
@@ -36,7 +34,6 @@ void PCalc_SP::markNonPrimes() {
         i++;
     }
 }
-
 
 void PCalc_SP::printPrimes(const char *filename) {
     PCalc::printPrimes(filename);
