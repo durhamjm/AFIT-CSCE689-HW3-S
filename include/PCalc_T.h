@@ -24,10 +24,6 @@ class PCalc_T : public PCalc {
 
     int numThreads;
 
-    unsigned int i = 2;
-    unsigned int j = 0;
-
-    // std::thread tests;
     std::vector<std::thread> threadList;
 
     protected:

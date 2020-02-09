@@ -17,12 +17,16 @@ void PCalc_SP::markNonPrimes() {
     unsigned int i = 2;
     unsigned int j = 0;
 
+    //Just count through the numbers
+    //Use sqrt of array size since smaller numbers were already checked, so if the number doesn't have any factors equal to or less
+    //than it's square root, it's prime
     while (i < sqrt(array_size())) {
         if (PCalc::at(i)) {
             // std::cout << "Trying: ";
             // std::cout << i;
             // std::cout << std::endl;
             for (j = i * i;j < array_size();j = j + i) {
+                //Added a check for false before setting the value; testing doesn't seem to show if it's faster or slower
                 if (PCalc::at(j)) {
                     PCalc::at(j) = false;
                 }

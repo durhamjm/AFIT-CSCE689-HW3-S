@@ -12,6 +12,7 @@
 PCalc_T::PCalc_T(unsigned int count_to, unsigned int threads) : PCalc(count_to) {
     numThreads = threads;
     
+    //Attempted to use p_threads; couldn't figure out the struct to hold the data
     // int t = 0;
     // struct thread_data *threaddata;
     // pthread_t threads2[threads];
@@ -28,6 +29,9 @@ void PCalc_T::markNonPrimes() {
     int n = 0;
     int m = 0;
 
+    //Make the threads, track them in a vector, and send them to markT
+    //I tried making a spawnThread() function, but since the main file calls markNonPrimes, this function has to happen first
+    //so it was easier to spawn them here and make another marking function
     for (n = 0; n < numThreads; n++) {
         std::thread spawnThread(&PCalc_T::markT, this, n);
         this->threadList.push_back(std::move(spawnThread));
@@ -45,6 +49,7 @@ void PCalc_T::markT(int start) {
     unsigned int j = 0;
     int threadpos = 0;
 
+    //Same check as _SP, but with a threadposition so they don't repeat work
      while (i < sqrt(PCalc::array_size())) {
         
         if (PCalc::at(i) && i <= threadpos) {
