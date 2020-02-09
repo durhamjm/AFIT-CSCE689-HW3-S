@@ -23,6 +23,7 @@ class PCalc_T : public PCalc {
     void printPrimes(const char *filename);
 
     int numThreads;
+    unsigned int threadpos;
 
     std::vector<std::thread> threadList;
 

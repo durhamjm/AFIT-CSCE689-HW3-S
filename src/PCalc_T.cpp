@@ -47,29 +47,30 @@ void PCalc_T::markT(int start) {
     //variables
     unsigned int i = 2;
     unsigned int j = 0;
-    int threadpos = 0;
+    unsigned int markStart = start + 2;
+
+    threadpos = 1;
 
     //Same check as _SP, but with a threadposition so they don't repeat work
-     while (i < sqrt(PCalc::array_size())) {
-        
-        if (PCalc::at(i) && i <= threadpos) {
-    //         // std::cout << "Trying: ";
-    //         // std::cout << i;
-    //         // std::cout << std::endl;
+     for (i = markStart; i <= sqrt(PCalc::array_size()); i++) {
+         if (i <= threadpos) {
+             continue;
+         }
+        else if (PCalc::at(i)) {
+            // std::cout << "Trying: ";
+            // std::cout << i;
+            // std::cout << std::endl;
             threadpos = i;
             for (j = i * i;j < PCalc::array_size();j = j + i) {
                 if (PCalc::at(j)) {
                     PCalc::at(j) = false;
                 }
-    //             // std::cout << "Setting ";
-    //             // std::cout << j;
-    //             // std::cout << std::endl;
+                // std::cout << "Setting ";
+                // std::cout << j;
+                // std::cout << std::endl;
             }
         }
-        i++;
     }
-
-
 }
 
 // void *t_markNonPrimes(void *data) {   
