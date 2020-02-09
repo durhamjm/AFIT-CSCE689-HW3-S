@@ -14,8 +14,8 @@ PCalc_SP::~PCalc_SP() {
 
 void PCalc_SP::markNonPrimes() {
     //variables
-    int i = 2;
-    int j = 0;
+    unsigned int i = 2;
+    unsigned int j = 0;
 
     while (i < sqrt(array_size())) {
         if (PCalc::at(i)) {

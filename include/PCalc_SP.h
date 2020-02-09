@@ -21,7 +21,7 @@ class PCalc_SP : public PCalc {
 
 
     private:
-    bool *primelist;
+
 
 };
 

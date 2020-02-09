@@ -2,6 +2,8 @@
 #define PCALC_T_H
 
 #include "PCalc.h"
+#include <thread>
+#include <vector>
 
 // Your implementation of PCalc_T class should go here. 
 // Make sure your constructor takes in two parameters:
@@ -17,11 +19,16 @@ class PCalc_T : public PCalc {
     PCalc_T(unsigned int count_to, unsigned int threads);
     unsigned int array_size() { return asize; };
     void markNonPrimes();
-    void *markNonPrimes2(void *arg);
-
+    void markT(int start);
     void printPrimes(const char *filename);
 
-    void spawnThread();
+    int numThreads;
+
+    unsigned int i = 2;
+    unsigned int j = 0;
+
+    // std::thread tests;
+    std::vector<std::thread> threadList;
 
     protected:
 

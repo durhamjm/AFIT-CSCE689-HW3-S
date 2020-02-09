@@ -4,53 +4,72 @@
 #include <iostream>
 #include <PCalc_T.h>
 #include <PCalc.h>
-#include <pthread.h>
+// #include <pthread.h>
 #include <math.h>
+#include <cmath>
+#include <thread>
 
 PCalc_T::PCalc_T(unsigned int count_to, unsigned int threads) : PCalc(count_to) {
-    int t = 0;
-    int arg;
-    pthread_t threads2[threads];
-    for (t = 0; t < threads; t++) {
-        //std::cout << "Make thread #" << t << std::endl;
-        int create = pthread_create(&threads2[t], NULL, markNonPrimes2, (void *) arg);
-    }
+    numThreads = threads;
+    
+    // int t = 0;
+    // struct thread_data *threaddata;
+    // pthread_t threads2[threads];
+    // for (t = 0; t < threads; t++) {
+    //     //std::cout << "Making thread #" << t << std::endl;
+    //     int create = pthread_create(&threads2[t], NULL, t_markNonPrimes, (void *) &threaddata);
+    // }
 }
 
 PCalc_T::~PCalc_T() {
 }
 
 void PCalc_T::markNonPrimes() {
-    //variables
-    int i = 2;
-    int j = 0;
+    int n = 0;
+    int m = 0;
 
-    while (i < sqrt(array_size())) {
-        if (PCalc::at(i)) {
-            // std::cout << "Trying: ";
-            // std::cout << i;
-            // std::cout << std::endl;
-            for (j = i * i;j < array_size();j = j + i) {
+    for (n = 0; n < numThreads; n++) {
+        std::thread spawnThread(&PCalc_T::markT, this, n);
+        this->threadList.push_back(std::move(spawnThread));
+        std::cout << "Making thread # " << n << std::endl;
+    }
+
+    for (m = 0; m < threadList.size(); m++) {
+        threadList.at(m).join();
+    }
+}
+
+void PCalc_T::markT(int start) {
+    //variables
+    unsigned int i = 2;
+    unsigned int j = 0;
+    int threadpos = 0;
+
+     while (i < sqrt(PCalc::array_size())) {
+        
+        if (PCalc::at(i) && i <= threadpos) {
+    //         // std::cout << "Trying: ";
+    //         // std::cout << i;
+    //         // std::cout << std::endl;
+            threadpos = i;
+            for (j = i * i;j < PCalc::array_size();j = j + i) {
                 if (PCalc::at(j)) {
                     PCalc::at(j) = false;
                 }
-                // std::cout << "Setting ";
-                // std::cout << j;
-                // std::cout << std::endl;
+    //             // std::cout << "Setting ";
+    //             // std::cout << j;
+    //             // std::cout << std::endl;
             }
         }
         i++;
     }
-}
 
-void *markNonPrimes2(void *arg) {
 
 }
 
-void PCalc_T::spawnThread() {
-    int t = 0;
-    
-}
+// void *t_markNonPrimes(void *data) {   
+// }
+
 
 
 void PCalc_T::printPrimes(const char *filename) {
